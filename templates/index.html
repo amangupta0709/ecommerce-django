@@ -1,0 +1,129 @@
+	{% extends 'base.html' %}
+	{% load static %}
+
+	{% block body %}
+						
+
+		
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<div id="store" class="col-md-12">
+						<div class="row">
+							{% for item in productdata %}
+							<div class="col-md-4 col-xs-6">
+								<!-- product -->
+								
+								<div class="product">
+								<a href="{% url 'itemdetail' item.category item.slug %}" style="color: inherit; text-decoration: inherit;">
+									<div class="product-img">
+										<img src="{{ item.image.url }}" alt="">
+										<div class="product-label">
+											{% if item.discount != 0 %}
+											<span class="sale">-{{ item.discount }}%</span>
+											{% endif %}
+											{% if item.productnew == True %}
+											<span class="new">NEW</span>
+											{% endif %}
+										</div>
+									</div>
+									<div class="product-body">
+										<p class="product-category">{{ item.category }}</p>
+										<h3 class="product-name"><a href="#">{{ item.title }} </a></h3>
+										{% if item.discount != 0 %}
+										<h4 class="product-price">&#8377;{{ item.discountedprice }} <del class="product-old-price">&#8377;{{ item.price }} </del></h4>
+										{% else %}
+										<h4 class="product-price">&#8377;{{ item.price }}</h4>
+										{% endif %}
+										<div class="product-rating">
+											{% if item.ratings == 5 %} 
+											<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+											{% elif item.ratings == 4 %}
+											<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i>
+											{% elif item.ratings == 3 %}
+											<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+											{% elif item.ratings == 2 %}
+											<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+											{% elif item.ratings == 1 %}
+											<i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+											{% else %}
+											<i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+											{% endif %}
+										</div>
+									</div>
+									<div class="add-to-cart">
+										<form id="addtocartpost" method="POST" >
+											{% csrf_token %}
+										<input type="hidden" id="addtocartbtn" name="addtocartbtn" value="{{item.id}}" />
+										<button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+										</form>
+									</div>
+								</a>
+								</div>
+								
+								<!-- /product -->
+						
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+					<!-- Products tab & slick -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- HOT DEAL SECTION -->
+		<!-- <div id="hot-deal" class="section">
+			
+			<div class="container"> -->
+				<!-- row -->
+				<!-- <div class="row">
+					<div class="col-md-12">
+						<div class="hot-deal">
+							<ul class="hot-deal-countdown">
+								<li>
+									<div>
+										<h3>02</h3>
+										<span>Days</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3>10</h3>
+										<span>Hours</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3>34</h3>
+										<span>Mins</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3>60</h3>
+										<span>Secs</span>
+									</div>
+								</li>
+							</ul>
+							<h2 class="text-uppercase">hot deal this week</h2>
+							<p>New Collection Up to 50% OFF</p>
+							<a class="primary-btn cta-btn" href="#">Shop now</a>
+						</div>
+					</div>
+				</div> -->
+				<!-- /row -->
+			<!-- </div>
+			
+		</div> -->
+		<!-- /HOT DEAL SECTION -->
+
+		{% endblock body %}
